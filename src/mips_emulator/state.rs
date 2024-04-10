@@ -962,8 +962,9 @@ impl InstrumentedState {
             println!("gen split file {}", name);
             log::trace!("split: file {}", name);
             println!("call new writer");
-            let f = new_writer(&name).unwrap();
-            serde_json::to_writer(f, &segment).unwrap();
+            let mut f = new_writer(&name).unwrap();
+            let data = serde_json::to_vec(&segment).unwrap();
+            f.write_all(data.as_slice()).unwrap();
             println!("write to writer done");
             self.pre_segment_id += 1;
         }
