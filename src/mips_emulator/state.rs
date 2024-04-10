@@ -959,6 +959,7 @@ impl InstrumentedState {
                 page_hash_root,
             };
             let name = format!("{output}/{}", self.pre_segment_id);
+            println!("gen split file {}", name);
             log::trace!("split: file {}", name);
             let f = new_writer(&name).unwrap();
             serde_json::to_writer(f, &segment).unwrap();
